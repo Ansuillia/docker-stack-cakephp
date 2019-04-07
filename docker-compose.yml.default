@@ -6,7 +6,7 @@ services:
     container_name: cakeschool_nginx
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - ../cake-school:/usr/share/nginx/html
+      - path_of_your_app:/usr/share/nginx/html
     restart: always
     ports:
       - 80:80
@@ -17,7 +17,7 @@ services:
     build: ./php
     container_name: cakeschool_php
     volumes:
-      - ../cake-school:/usr/share/nginx/html
+      - path_of_your_app:/usr/share/nginx/html
     working_dir: /usr/share/nginx/html
     user: 1000:1000
     networks: 

@@ -1,2 +1,5 @@
 redis/*
 mysql/*
+nginx/*
+docker-compose.yml
+!default.conf
