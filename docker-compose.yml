@@ -1,0 +1,53 @@
+version: "3"
+services:
+
+  nginx:
+    image: nginx:1.15.10-alpine
+    container_name: cakeschool_nginx
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ../cake-school:/usr/share/nginx/html
+    restart: always
+    ports:
+      - 80:80
+    networks: 
+     - backend
+
+  php-fpm:
+    build: ./php
+    container_name: cakeschool_php
+    volumes:
+      - ../cake-school:/usr/share/nginx/html
+    working_dir: /usr/share/nginx/html
+    user: 1000:1000
+    networks: 
+      - backend
+    
+  mysql:
+    image: mysql:5.7    
+    container_name: cakeschool_mysql
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=753654      
+      - MYSQL_ROOT_HOST=%      
+    ports:
+      - 3306:3306
+    networks: 
+      - backend
+
+  redis:
+    image: redis:5.0.4-alpine
+    container_name: cakeschool_redis
+    volumes:
+      - ./redis/data:/data
+    ports:
+      - 6379:6379
+    networks: 
+      - frontend
+      - backend
+
+networks:
+  frontend:
+  backend:
+    driver: "bridge"
