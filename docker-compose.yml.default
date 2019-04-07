@@ -3,7 +3,7 @@ services:
 
   nginx:
     image: nginx:1.15.10-alpine
-    container_name: cakeschool_nginx
+    container_name: nginx
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - path_of_your_app:/usr/share/nginx/html
@@ -15,7 +15,7 @@ services:
 
   php-fpm:
     build: ./php
-    container_name: cakeschool_php
+    container_name: php
     volumes:
       - path_of_your_app:/usr/share/nginx/html
     working_dir: /usr/share/nginx/html
@@ -25,11 +25,11 @@ services:
     
   mysql:
     image: mysql:5.7    
-    container_name: cakeschool_mysql
+    container_name: mysql
     volumes:
       - ./mysql/data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=753654      
+      - MYSQL_ROOT_PASSWORD=your_password      
       - MYSQL_ROOT_HOST=%      
     ports:
       - 3306:3306
@@ -38,7 +38,7 @@ services:
 
   redis:
     image: redis:5.0.4-alpine
-    container_name: cakeschool_redis
+    container_name: redis
     volumes:
       - ./redis/data:/data
     ports:
